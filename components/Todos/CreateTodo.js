@@ -38,8 +38,27 @@ const CreateTodo = () => {
 
 //creating todo icon
 const CreateIconTrue = ({ handleSubmit, title, setTitle, setCreateTodo }) => {
+  let newDate = new Date();
+  const [dateButton, setDateButton] = React.useState(false);
+  const month = [
+    "JAN",
+    "FEB",
+    "MAR",
+    "APR",
+    "MAY",
+    "JUN",
+    "JUL",
+    "AUG",
+    "SEP",
+    "OCT",
+    "NOV",
+    "DEC",
+  ];
+  let date = newDate.getDate();
+  let currentMonth = month[newDate.getMonth()];
   return (
     <div className="create-todo-container">
+      {/*first line*/}
       <form onSubmit={handleSubmit}>
         <div>
           <img className="short-icon" alt="short-icon" src="short.png" />
@@ -52,9 +71,30 @@ const CreateIconTrue = ({ handleSubmit, title, setTitle, setCreateTodo }) => {
           />
         </div>
         <hr className="create-input-line" />
+        {/*second line*/}
         <div className="create-input-line2">
-          <div>
-            <input type="date" />
+          <div className="create-input-date">
+            {/* date input */}
+            {dateButton ? (
+              <div className="due-date-container">
+                <input className="due-date" type="datetime-local" />
+              </div>
+            ) : (
+              <div className="calender-due-container">
+                <div className="create-input-current-calender">
+                  <p className="current-month-container">{currentMonth}</p>
+                  <p className="current-date-container">{date}</p>
+                </div>
+                <button
+                  className="transparentButton dueButton"
+                  onClick={() => {
+                    setDateButton(true);
+                  }}
+                >
+                  Enter Due Date
+                </button>
+              </div>
+            )}
           </div>
           <div className="create-input-buttons">
             <button

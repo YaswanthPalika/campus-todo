@@ -155,3 +155,80 @@ a {
   align-self: stretch;
   flex-grow: 0;
 }
+.create-input-date {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+
+  width: 142px;
+  height: 21px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.create-input-current-calender {
+  width: 17px;
+  height: 28px;
+  display: flex;
+  flex-direction: column;
+}
+.current-month-container {
+  height: 8px;
+  width: 17px;
+  position: absolute;
+  background: #5f6368;
+  font-size: 6.5546875px;
+  text-align: center;
+  font-weight: bold;
+  color: #ffffff;
+  border-top-left-radius: 25%;
+  border-top-right-radius: 25%;
+}
+.current-date-container {
+  height: 16px;
+  padding: 3px;
+  border: 1px solid #5f6368;
+  text-align: center;
+  font-weight: bold;
+  font-size: 9px;
+  color: #5f6368;
+  border-radius: 20%;
+}
+.dueButton {
+  font-family: "Roboto";
+  font-style: italic;
+  width: 150px;
+  height: 21px;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 21px;
+  color: #cbcbcb;
+  flex: none;
+  text-align: start;
+  order: 1;
+  flex-grow: 0;
+}
+
+.due-date {
+  border: solid 1px #5f6368;
+  margin-left: 30px;
+}
+.calender-due-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+
+  width: 142px;
+  height: 21px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
