@@ -183,6 +183,16 @@
   flex-grow: 0;
 }
 
+.todoListContainer {
+  height: 31px;
+  width: 1000px;
+  border-radius: 5px;
+  padding: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .todoList {
   height: 31px;
   width: 460px;
@@ -200,6 +210,19 @@
   flex: none;
   order: 0;
   flex-grow: 0;
+}
+.todoListContainer:hover,
+.todoListContainer:focus,
+.todoListContainer:active {
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+}
+
+.iconsContainer {
+  display: none;
+}
+
+.todoListContainer:hover .iconsContainer {
+  display: block;
 }
 .transparentButton {
   border: 0px;
@@ -236,4 +259,36 @@
   flex: none;
   order: 1;
   flex-grow: 0;
+}
+.starImage2,
+.duplicateImage2,
+.deleteImage2 {
+  display: none;
+}
+.starImageContainer:hover .starImage2 {
+  display: block;
+}
+.starImageContainer:hover .starImage {
+  display: none;
+}
+.deleteImageContainer:hover .deleteImage2 {
+  display: block;
+}
+.deleteImageContainer:hover .deleteImage {
+  display: none;
+}
+.duplicateImageContainer:hover .duplicateImage2 {
+  display: block;
+}
+.duplicateImageContainer:hover .duplicateImage {
+  display: none;
+}
+.checkBoxContainer:hover .checkBox2 {
+  display: block;
+}
+.checkBoxContainer:hover .checkBox {
+  display: none;
+}
+.checkBox2 {
+  display: none;
 }

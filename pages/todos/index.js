@@ -51,16 +51,67 @@ export default function Todos() {
         {/*to list */}
         {todos.map((todo) => (
           <li
-            className={styles.todoList}
+            className={styles.todoListContainer}
             key={todo.id}
             style={{
               textDecoration: todo.completed ? "line-through" : "none",
             }}
           >
-            <button className={styles.transparentButton}>
-              <img className={styles.checkBox} src="Ellipse.png" />
-            </button>
-            <p className={styles.paraTodo}>{todo.title}</p>
+            {/**content  */}
+            <div className={styles.todoList}>
+              <button
+                className={`${styles["checkBoxContainer"]} ${styles["transparentButton"]}`}
+              >
+                <img className={styles.checkBox} src="check.png" />
+                <img className={styles.checkBox2} src="check2.png" />
+              </button>
+              <p className={styles.paraTodo}>{todo.title}</p>
+            </div>
+            {/**todo icons */}
+            <div className={styles.iconsContainer}>
+              <button
+                className={`${styles["duplicateImageContainer"]} ${styles["transparentButton"]}`}
+              >
+                <img
+                  className={styles.duplicateImage}
+                  src="duplicate.png"
+                  alt="duplicate-icon"
+                />
+                <img
+                  className={styles.duplicateImage2}
+                  src="duplicate2.png"
+                  alt="duplicate-icon"
+                />
+              </button>
+              <button
+                className={`${styles["starImageContainer"]} ${styles["transparentButton"]}`}
+              >
+                <img
+                  className={styles.starImage}
+                  src="star.png"
+                  alt="star-icon"
+                />
+                <img
+                  className={styles.starImage2}
+                  src="star2.png"
+                  alt="star-icon"
+                />
+              </button>
+              <button
+                className={`${styles["deleteImageContainer"]} ${styles["transparentButton"]}`}
+              >
+                <img
+                  className={styles.deleteImage}
+                  src="delete.png"
+                  alt="delete-icon"
+                />
+                <img
+                  className={styles.deleteImage2}
+                  src="delete2.png"
+                  alt="delete-icon"
+                />
+              </button>
+            </div>
           </li>
         ))}
         {/* create new item */}
