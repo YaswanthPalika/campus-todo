@@ -3,9 +3,11 @@ import CreateTodo from "../../components/Todos/CreateTodo";
 import getTodos from "../../utils/todos/getTodos";
 import deleteTodo from "../../utils/todos/deleteTodo";
 import completeTodo from "../../utils/todos/completeTodo";
+import styles from "../../styles/Todos.module.css";
 
 export default function Todos() {
   const [todos, setTodos] = React.useState([]);
+  const [createTodo, setCreateTodo] = React.useState(false);
 
   React.useEffect(() => {
     getTodos().then((todos) => setTodos(todos));
@@ -24,39 +26,46 @@ export default function Todos() {
   };
 
   return (
-    <div>
-      <h1>Todos</h1>
-
+    <div className={styles.todo}>
+      {/*title bar*/}
+      <div className={styles.title}>
+        <img src="Logo.png" alt="title-icon" className={styles.titleIcon} />
+        <h1 className={styles.titleHeading}>Todo List</h1>
+      </div>
       {/* Search bar */}
-      <div>
-        <input type="text" placeholder="Search" />
+      <div className={styles.actionBar}>
+        <div className={styles.searchBar}>
+          <img className={styles.searchIcon} src="search.png" />
+          <input
+            className={styles.searchInput}
+            placeholder="Search by Title"
+            type="text"
+          />
+        </div>
+        <p className={styles.paraSort}>Sort By</p>
+        <p className={styles.paraActivity}>Activity log</p>
       </div>
+      {/*todo list menu */}
 
-      {/* Sorting dropdown */}
-      <div>
-        <select>
-          <option value="title">Title</option>
-          <option value="createdAt">Created At (Asc)</option>
-          <option value="-createdAt">Created At (Desc)</option>
-        </select>
-      </div>
-
-      <ul>
+      <ul className={styles.todoListBox}>
+        {/*to list */}
         {todos.map((todo) => (
           <li
+            className={styles.todoList}
             key={todo.id}
             style={{
               textDecoration: todo.completed ? "line-through" : "none",
             }}
           >
-            {todo.title}
-            <button onClick={() => handleComplete(todo.id)}>Complete</button>
-            <button>Favorite</button>
-            <button onClick={() => handleDelete(todo.id)}>Delete</button>
+            <button className={styles.transparentButton}>
+              <img className={styles.checkBox} src="Ellipse.png" />
+            </button>
+            <p className={styles.paraTodo}>{todo.title}</p>
           </li>
         ))}
+        {/* create new item */}
+        <CreateTodo />
       </ul>
-      <CreateTodo />
     </div>
   );
 }

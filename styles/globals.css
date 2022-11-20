@@ -15,12 +15,143 @@ a {
   box-sizing: border-box;
 }
 
-@media (prefers-color-scheme: dark) {
-  html {
-    color-scheme: dark;
-  }
-  body {
-    color: white;
-    background: black;
-  }
+.createTodoBox {
+  height: 21px;
+  width: 162px;
+  margin-left: 5px;
+  margin-top: 5px;
+  border-radius: 0px;
+  display: flex;
+  padding: 0px;
+  gap: 0px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.plusButton {
+  height: 18px;
+  width: 18px;
+  margin-left: 0px;
+  margin-top: 1.5px;
+  border-radius: [object Object]px;
+}
+.paraCreateNewItem {
+  height: 21px;
+  width: 134px;
+  margin-left: 5px;
+  margin-top: 0px;
+  border-radius: nullpx;
+  font-family: "Roboto";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 21px;
+
+  /* identical to box height */
+
+  color: #3d82eb;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.transparentButton {
+  border: 0px;
+  background-color: transparent;
+}
+.create-todo-container {
+  height: 21px;
+  width: 990px;
+  margin-left: 5px;
+  margin-top: 5px;
+  border-radius: 0px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.short-icon {
+  /* Inside auto layout */
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+}
+.create-input-bar {
+  font-family: Roboto;
+  margin-left: 10px;
+  font-size: 18px;
+  font-style: italic;
+  font-weight: 300;
+  line-height: 21px;
+  letter-spacing: 0em;
+  text-align: left;
+  width: 800px;
+  height: 21px;
+  border: 0px;
+  outline: none;
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+}
+.create-input-bar::placeholder {
+  color: #cbcbcb;
+}
+.create-input-line {
+  width: 990px;
+  height: 0px;
+
+  border: 1px solid #ececec;
+  transform: rotate(179.87deg);
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
+}
+
+.create-input-line2 {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 0px;
+  gap: 86px;
+
+  width: 990px;
+  height: 21px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 2;
+  align-self: stretch;
+  flex-grow: 0;
+}
+.create-input-buttons {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  padding: 0px;
+  gap: 10px;
+
+  width: 41.59px;
+  height: 21px;
+
+  /* Inside auto layout */
+  flex: none;
+  order: 1;
+  align-self: stretch;
+  flex-grow: 0;
 }
