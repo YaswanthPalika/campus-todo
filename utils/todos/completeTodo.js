@@ -8,7 +8,7 @@ const completeTodo = async (id, currentCompletionStatus) => {
       completed: !currentCompletionStatus,
     }),
   });
-  return await response.json();
+  return await response;
 };
 
 export default completeTodo;

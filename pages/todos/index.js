@@ -60,10 +60,23 @@ export default function Todos() {
             {/**content  */}
             <div className={styles.todoList}>
               <button
+                onClick={() => {
+                  handleComplete(todo.id);
+                }}
                 className={`${styles["checkBoxContainer"]} ${styles["transparentButton"]}`}
               >
-                <img className={styles.checkBox} src="check.png" />
-                <img className={styles.checkBox2} src="check2.png" />
+                {todo.completed ? (
+                  <img
+                    style={{ display: "block" }}
+                    className={styles.checkBox2}
+                    src="check2.png"
+                  />
+                ) : (
+                  <>
+                    <img className={styles.checkBox} src="check.png" />
+                    <img className={styles.checkBox2} src="check2.png" />
+                  </>
+                )}
               </button>
               <p className={styles.paraTodo}>{todo.title}</p>
             </div>
@@ -98,6 +111,9 @@ export default function Todos() {
                 />
               </button>
               <button
+                onClick={() => {
+                  handleDelete(todo.id);
+                }}
                 className={`${styles["deleteImageContainer"]} ${styles["transparentButton"]}`}
               >
                 <img
