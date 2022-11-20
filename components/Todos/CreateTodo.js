@@ -1,7 +1,8 @@
 import React from "react";
 
-const CreateTodo = () => {
+const CreateTodo = ({ setTodos, todos }) => {
   const [title, setTitle] = React.useState("");
+  const [isStarred, setIsStarred] = React.useState(false);
   const [createTodo, setCreateTodo] = React.useState(false);
 
   const handleSubmit = async (e) => {
@@ -13,11 +14,13 @@ const CreateTodo = () => {
       },
       body: JSON.stringify({
         title,
+        isStarred,
       }),
     });
     const todo = await response.json();
     setTitle("");
     setCreateTodo(false);
+    setTodos([...todos, todo]);
   };
 
   return (

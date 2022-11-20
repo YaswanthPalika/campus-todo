@@ -90,7 +90,7 @@
   color: #4e4e4e;
   font-family: Roboto;
   letter-spacing: 0em;
-  text-align: left;
+  text-align: center;
   /* Inside auto layout */
   flex: none;
   order: 1;
@@ -291,4 +291,15 @@
 }
 .checkBox2 {
   display: none;
+}
+.sortContainer {
+  height: 89px;
+  width: 113px;
+  margin-top: 50px;
+  border-radius: 0px;
+}
+.selectSort {
+  background-color: #4e4e4e;
+  color: #e8e8e8;
+  font-size: 9px;
 }

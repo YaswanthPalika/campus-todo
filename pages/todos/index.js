@@ -10,7 +10,12 @@ export default function Todos() {
   const [createTodo, setCreateTodo] = React.useState(false);
 
   React.useEffect(() => {
-    getTodos().then((todos) => setTodos(todos));
+    getTodos()
+      .then((todos) => setTodos(todos))
+      .catch((err) => {
+        console.log(err);
+        setTodos([]);
+      });
   }, []);
 
   const handleDelete = async (id) => {
@@ -42,7 +47,19 @@ export default function Todos() {
             type="text"
           />
         </div>
-        <p className={styles.paraSort}>Sort By</p>
+        <div className={styles.sortContainer}>
+          <p className={styles.paraSort}>Sort By</p>
+          <select className={styles.selectSort}>
+            <option value="" selected>
+              choose an option
+            </option>
+            <option>Title(↑)</option>
+            <option>Title(↓)</option>
+            <option>Due Date(↑)</option>
+            <option>Due Date(↓)</option>
+            <option>Create Date(↓)</option>
+          </select>
+        </div>
         <p className={styles.paraActivity}>Activity log</p>
       </div>
       {/*todo list menu */}
@@ -131,7 +148,7 @@ export default function Todos() {
           </li>
         ))}
         {/* create new item */}
-        <CreateTodo />
+        <CreateTodo setTodos={setTodos} todos={todos} />
       </ul>
     </div>
   );
