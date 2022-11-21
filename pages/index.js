@@ -16,7 +16,16 @@ export default function Home() {
 
         <p className={styles.description}>
           Hello check my assignment workflow here{" "}
-          <code className={styles.code}>README.md</code>
+          <a
+            style={{
+              textDecoration: "underline",
+              color: "blue",
+              fontWeight: "bold",
+            }}
+            href="https://github.com/YaswanthPalika/campus-todo"
+          >
+            https://github.com/YaswanthPalika/campus-todo
+          </a>
         </p>
 
         <div className={styles.grid}>
