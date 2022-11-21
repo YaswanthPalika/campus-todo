@@ -4,9 +4,11 @@ const CreateTodo = ({ setTodos, todos }) => {
   const [title, setTitle] = React.useState("");
   const [isStarred, setIsStarred] = React.useState(false);
   const [createTodo, setCreateTodo] = React.useState(false);
+  const [dueDate, setDueDate] = React.useState();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    console.log(dueDate);
     const response = await fetch("/api/todos", {
       method: "POST",
       headers: {
@@ -14,6 +16,7 @@ const CreateTodo = ({ setTodos, todos }) => {
       },
       body: JSON.stringify({
         title,
+        dueDate,
       }),
     });
     const todo = await response.json();
@@ -30,6 +33,8 @@ const CreateTodo = ({ setTodos, todos }) => {
           title={title}
           setTitle={setTitle}
           setCreateTodo={setCreateTodo}
+          dueDate={dueDate}
+          setDueDate={setDueDate}
         />
       ) : (
         <CreateIconFalse setCreateTodo={setCreateTodo} />
@@ -39,7 +44,14 @@ const CreateTodo = ({ setTodos, todos }) => {
 };
 
 //creating todo icon
-const CreateIconTrue = ({ handleSubmit, title, setTitle, setCreateTodo }) => {
+const CreateIconTrue = ({
+  handleSubmit,
+  title,
+  setTitle,
+  setCreateTodo,
+  dueDate,
+  setDueDate,
+}) => {
   let newDate = new Date();
   const [dateButton, setDateButton] = React.useState(false);
   const month = [
@@ -79,7 +91,14 @@ const CreateIconTrue = ({ handleSubmit, title, setTitle, setCreateTodo }) => {
             {/* date input */}
             {dateButton ? (
               <div className="due-date-container">
-                <input className="due-date" type="datetime-local" />
+                <input
+                  onChange={(e) => {
+                    console.log(e.target.value);
+                    setDueDate(e.target.value);
+                  }}
+                  className="due-date"
+                  type="datetime-local"
+                />
               </div>
             ) : (
               <div className="calender-due-container">

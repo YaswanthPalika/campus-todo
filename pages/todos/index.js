@@ -6,6 +6,7 @@ import completeTodo from "../../utils/todos/completeTodo";
 import styles from "../../styles/Todos.module.css";
 import favouriteTodo from "../../utils/todos/starTodo";
 import duplicateTodo from "../../utils/todos/duplicateTodo";
+import moment from "moment";
 
 export default function Todos() {
   const [todos, setTodos] = React.useState([]);
@@ -13,12 +14,29 @@ export default function Todos() {
 
   React.useEffect(() => {
     getTodos()
-      .then((todos) => setTodos(todos))
+      .then((todos) => {
+        setTodos(todos);
+        console.log(todos);
+      })
       .catch((err) => {
         console.log(err);
         setTodos([]);
       });
   }, []);
+
+  const checkOverDue = (dueDate) => {
+    const currentDate = new Date();
+    if (dueDate == null) {
+      return false;
+    } else {
+      const x = moment().format();
+      if (x > dueDate) {
+        return true;
+      } else {
+        return false;
+      }
+    }
+  };
 
   const handleDuplicate = async (title) => {
     const response = await duplicateTodo(title);
@@ -78,7 +96,7 @@ export default function Todos() {
             key={todo.id}
             style={{
               textDecoration: todo.completed ? "line-through" : "none",
-              fontWeight: todo.favourite ? "bold" : "normal",
+              backgroundColor: checkOverDue(todo.dueDate) ? "#FFDFDF" : "white",
             }}
           >
             {/**content  */}

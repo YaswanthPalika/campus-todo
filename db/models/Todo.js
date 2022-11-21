@@ -26,6 +26,10 @@ const Todo = db.define("Todo", {
     allowNull: false,
     defaultValue: false,
   },
+  dueDate: {
+    type: DataTypes.DATE,
+    allowNull: true,
+  },
 });
 
 export default Todo;
