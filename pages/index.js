@@ -15,7 +15,7 @@ export default function Home() {
         <h1 className={styles.title}>QuillBot Todo App Assignment</h1>
 
         <p className={styles.description}>
-          All instructions are in the{" "}
+          Hello check my assignment workflow here{" "}
           <code className={styles.code}>README.md</code>
         </p>
 

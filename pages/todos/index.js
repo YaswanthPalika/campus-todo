@@ -11,7 +11,11 @@ import moment from "moment";
 export default function Todos() {
   const [todos, setTodos] = React.useState([]);
   const [createTodo, setCreateTodo] = React.useState(false);
-  const [editItem, setEditItem] = React.useState([]);
+  const [editItem, setEditItem] = React.useState(-1);
+  const [offset, setOffset] = React.useState(0);
+  const [searchItem, setSearchItem] = React.useState("");
+  const [sortKey, setSortKey] = React.useState("");
+  const [sortValue, setSortValue] = React.useState("");
 
   React.useEffect(() => {
     getTodos()
@@ -77,13 +81,25 @@ export default function Todos() {
         <div className={styles.searchBar}>
           <img className={styles.searchIcon} src="search.png" />
           <input
+            id={`odo-search-bar`}
+            onChange={async (e) => {
+              const x = e.target.value;
+              setSearchItem(e.target.value);
+              const response = await fetch(
+                `/api/search?search=${x}&offset=${offset}`
+              );
+              const data = await response.json();
+              setTodos(data);
+            }}
             className={styles.searchInput}
             placeholder="Search by Title"
             type="text"
           />
         </div>
         <div className={styles.sortContainer}>
-          <p className={styles.paraSort}>Sort By</p>
+          <p id={`todo-sort-dropdown`} className={styles.paraSort}>
+            Sort By
+          </p>
         </div>
         <p className={styles.paraActivity}>Activity log</p>
       </div>
@@ -93,111 +109,117 @@ export default function Todos() {
         {/*to list */}
         {todos.map((todo) => (
           <li
-            className={styles.todoListContainer}
+            className={styles.li}
+            id={`todo-${todo.id}`}
             key={todo.id}
             style={{
               textDecoration: todo.completed ? "line-through" : "none",
               backgroundColor: checkOverDue(todo.dueDate) ? "#FFDFDF" : "white",
             }}
           >
-            {/**content  */}
-            <div className={styles.todoList}>
-              <button
-                onClick={() => {
-                  handleComplete(todo.id);
-                }}
-                className={`${styles["checkBoxContainer"]} ${styles["transparentButton"]}`}
-              >
-                {todo.completed ? (
-                  <img
-                    style={{ display: "block" }}
-                    className={styles.checkBox2}
-                    src="check2.png"
-                  />
-                ) : (
-                  <>
-                    <img className={styles.checkBox} src="check.png" />
-                    <img className={styles.checkBox2} src="check2.png" />
-                  </>
-                )}
-              </button>
-              <p
-                onClick={async () => {
-                  await setEditItem((x) => [...x, todo.id]);
-                }}
-                className={styles.paraTodo}
-                style={{
-                  fontWeight: todo.favourite ? "bold" : "normal",
-                }}
-              >
-                {todo.title}
-              </p>
-            </div>
-            <div className={styles.todoItemEmptyDiv}></div>
-            {/**todo icons */}
-            <div className={styles.iconsContainer}>
-              <button
-                className={`${styles["duplicateImageContainer"]} ${styles["transparentButton"]}`}
-                onClick={() => {
-                  handleDuplicate(todo.title);
-                }}
-              >
-                <img
-                  className={styles.duplicateImage}
-                  src="duplicate.png"
-                  alt="duplicate-icon"
-                />
-                <img
-                  className={styles.duplicateImage2}
-                  src="duplicate2.png"
-                  alt="duplicate-icon"
-                />
-              </button>
-              <button
-                className={`${styles["starImageContainer"]} ${styles["transparentButton"]}`}
-                onClick={() => {
-                  handleFavourite(todo.id);
-                }}
-              >
-                {todo.favourite ? (
-                  <img
-                    style={{ display: "block" }}
-                    className={styles.starImage2}
-                    src="star2.png"
-                    alt="star-icon"
-                  />
-                ) : (
-                  <>
+            <div className={styles.todoListContainer}>
+              {/**content  */}
+              <div className={styles.todoList}>
+                <button
+                  onClick={() => {
+                    handleComplete(todo.id);
+                  }}
+                  className={`${styles["checkBoxContainer"]} ${styles["transparentButton"]}`}
+                >
+                  {todo.completed ? (
                     <img
-                      className={styles.starImage}
-                      src="star.png"
-                      alt="star-icon"
+                      style={{ display: "block" }}
+                      className={styles.checkBox2}
+                      src="check2.png"
                     />
+                  ) : (
+                    <>
+                      <img className={styles.checkBox} src="check.png" />
+                      <img className={styles.checkBox2} src="check2.png" />
+                    </>
+                  )}
+                </button>
+                <p
+                  onClick={async () => {
+                    setEditItem(todo.id);
+                  }}
+                  className={styles.paraTodo}
+                  style={{
+                    fontWeight: todo.favourite ? "bold" : "normal",
+                  }}
+                >
+                  {todo.title}
+                </p>
+              </div>
+              <div className={styles.todoItemEmptyDiv}></div>
+              {/**todo icons */}
+              <div className={styles.iconsContainer}>
+                <button
+                  className={`${styles["duplicateImageContainer"]} ${styles["transparentButton"]}`}
+                  onClick={() => {
+                    handleDuplicate(todo.title);
+                  }}
+                >
+                  <img
+                    className={styles.duplicateImage}
+                    src="duplicate.png"
+                    alt="duplicate-icon"
+                  />
+                  <img
+                    className={styles.duplicateImage2}
+                    src="duplicate2.png"
+                    alt="duplicate-icon"
+                  />
+                </button>
+                <button
+                  className={`${styles["starImageContainer"]} ${styles["transparentButton"]}`}
+                  onClick={() => {
+                    handleFavourite(todo.id);
+                  }}
+                >
+                  {todo.favourite ? (
                     <img
+                      style={{ display: "block" }}
                       className={styles.starImage2}
+                      id={`todo-star-button__${todo.id}`}
                       src="star2.png"
                       alt="star-icon"
                     />
-                  </>
-                )}
-              </button>
-              <button
-                onClick={() => {
-                  handleDelete(todo.id);
-                }}
-                className={`${styles["deleteImageContainer"]} ${styles["transparentButton"]}`}
-              >
-                <img
-                  className={styles.deleteImage}
-                  src="delete.png"
-                  alt="delete-icon"
-                />
-                <img
-                  className={styles.deleteImage2}
-                  src="delete2.png"
-                  alt="delete-icon"
-                />
-              </button>
+                  ) : (
+                    <>
+                      <img
+                        className={styles.starImage}
+                        src="star.png"
+                        id={`todo-star-button__${todo.id}`}
+                        alt="star-icon"
+                      />
+                      <img
+                        className={styles.starImage2}
+                        id={`todo-star-button__${todo.id}`}
+                        src="star2.png"
+                        alt="star-icon"
+                      />
+                    </>
+                  )}
+                </button>
+                <button
+                  onClick={() => {
+                    handleDelete(todo.id);
+                  }}
+                  className={`${styles["deleteImageContainer"]} ${styles["transparentButton"]}`}
+                >
+                  <img
+                    className={styles.deleteImage}
+                    src="delete.png"
+                    alt="delete-icon"
+                  />
+                  <img
+                    className={styles.deleteImage2}
+                    src="delete2.png"
+                    alt="delete-icon"
+                  />
+                </button>
+              </div>
             </div>
           </li>
         ))}

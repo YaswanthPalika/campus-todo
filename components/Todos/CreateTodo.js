@@ -96,6 +96,7 @@ const CreateIconTrue = ({
                     console.log(e.target.value);
                     setDueDate(e.target.value);
                   }}
+                  id={`new-todo-due-date-picker`}
                   className="due-date"
                   type="datetime-local"
                 />
