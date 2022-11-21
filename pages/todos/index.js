@@ -11,6 +11,7 @@ import moment from "moment";
 export default function Todos() {
   const [todos, setTodos] = React.useState([]);
   const [createTodo, setCreateTodo] = React.useState(false);
+  const [editItem, setEditItem] = React.useState([]);
 
   React.useEffect(() => {
     getTodos()
@@ -121,6 +122,9 @@ export default function Todos() {
                 )}
               </button>
               <p
+                onClick={async () => {
+                  await setEditItem((x) => [...x, todo.id]);
+                }}
                 className={styles.paraTodo}
                 style={{
                   fontWeight: todo.favourite ? "bold" : "normal",
@@ -129,6 +133,7 @@ export default function Todos() {
                 {todo.title}
               </p>
             </div>
+            <div className={styles.todoItemEmptyDiv}></div>
             {/**todo icons */}
             <div className={styles.iconsContainer}>
               <button
