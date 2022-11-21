@@ -6,6 +6,7 @@ const completeTodo = async (id, currentCompletionStatus) => {
     },
     body: JSON.stringify({
       completed: !currentCompletionStatus,
+      x: "completed",
     }),
   });
   return await response;

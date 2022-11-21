@@ -21,6 +21,11 @@ const Todo = db.define("Todo", {
     allowNull: false,
     defaultValue: false,
   },
+  favourite: {
+    type: DataTypes.BOOLEAN,
+    allowNull: false,
+    defaultValue: false,
+  },
 });
 
 export default Todo;

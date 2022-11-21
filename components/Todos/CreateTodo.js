@@ -14,7 +14,6 @@ const CreateTodo = ({ setTodos, todos }) => {
       },
       body: JSON.stringify({
         title,
-        isStarred,
       }),
     });
     const todo = await response.json();

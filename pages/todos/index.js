@@ -4,6 +4,8 @@ import getTodos from "../../utils/todos/getTodos";
 import deleteTodo from "../../utils/todos/deleteTodo";
 import completeTodo from "../../utils/todos/completeTodo";
 import styles from "../../styles/Todos.module.css";
+import favouriteTodo from "../../utils/todos/starTodo";
+import duplicateTodo from "../../utils/todos/duplicateTodo";
 
 export default function Todos() {
   const [todos, setTodos] = React.useState([]);
@@ -18,6 +20,12 @@ export default function Todos() {
       });
   }, []);
 
+  const handleDuplicate = async (title) => {
+    const response = await duplicateTodo(title);
+    const todo = await response.json();
+    setTodos([...todos, todo]);
+  };
+
   const handleDelete = async (id) => {
     await deleteTodo(id);
     setTodos(todos.filter((todo) => todo.id !== id));
@@ -27,6 +35,14 @@ export default function Todos() {
     const todo = todos.find((todo) => todo.id === id);
     const response = await completeTodo(id, todo.completed);
     const updatedTodo = await response.json();
+    setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
+  };
+
+  const handleFavourite = async (id) => {
+    const todo = todos.find((todo) => todo.id === id);
+    const response = await favouriteTodo(id, todo.favourite);
+    const updatedTodo = await response.json();
+    console.log(updatedTodo);
     setTodos(todos.map((todo) => (todo.id === id ? updatedTodo : todo)));
   };
 
@@ -49,16 +65,6 @@ export default function Todos() {
         </div>
         <div className={styles.sortContainer}>
           <p className={styles.paraSort}>Sort By</p>
-          <select className={styles.selectSort}>
-            <option value="" selected>
-              choose an option
-            </option>
-            <option>Title(↑)</option>
-            <option>Title(↓)</option>
-            <option>Due Date(↑)</option>
-            <option>Due Date(↓)</option>
-            <option>Create Date(↓)</option>
-          </select>
         </div>
         <p className={styles.paraActivity}>Activity log</p>
       </div>
@@ -72,6 +78,7 @@ export default function Todos() {
             key={todo.id}
             style={{
               textDecoration: todo.completed ? "line-through" : "none",
+              fontWeight: todo.favourite ? "bold" : "normal",
             }}
           >
             {/**content  */}
@@ -95,12 +102,22 @@ export default function Todos() {
                   </>
                 )}
               </button>
-              <p className={styles.paraTodo}>{todo.title}</p>
+              <p
+                className={styles.paraTodo}
+                style={{
+                  fontWeight: todo.favourite ? "bold" : "normal",
+                }}
+              >
+                {todo.title}
+              </p>
             </div>
             {/**todo icons */}
             <div className={styles.iconsContainer}>
               <button
                 className={`${styles["duplicateImageContainer"]} ${styles["transparentButton"]}`}
+                onClick={() => {
+                  handleDuplicate(todo.title);
+                }}
               >
                 <img
                   className={styles.duplicateImage}
@@ -115,17 +132,31 @@ export default function Todos() {
               </button>
               <button
                 className={`${styles["starImageContainer"]} ${styles["transparentButton"]}`}
+                onClick={() => {
+                  handleFavourite(todo.id);
+                }}
               >
-                <img
-                  className={styles.starImage}
-                  src="star.png"
-                  alt="star-icon"
-                />
-                <img
-                  className={styles.starImage2}
-                  src="star2.png"
-                  alt="star-icon"
-                />
+                {todo.favourite ? (
+                  <img
+                    style={{ display: "block" }}
+                    className={styles.starImage2}
+                    src="star2.png"
+                    alt="star-icon"
+                  />
+                ) : (
+                  <>
+                    <img
+                      className={styles.starImage}
+                      src="star.png"
+                      alt="star-icon"
+                    />
+                    <img
+                      className={styles.starImage2}
+                      src="star2.png"
+                      alt="star-icon"
+                    />
+                  </>
+                )}
               </button>
               <button
                 onClick={() => {

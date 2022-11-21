@@ -7,6 +7,7 @@ export default async function handler(req, res) {
     await todo.destroy();
     res.status(204).end();
   }
+  /*
   if (req.method === "PATCH") {
     const { slug } = req.query;
     const { completed } = req.body;
@@ -14,5 +15,25 @@ export default async function handler(req, res) {
     todo.completed = completed;
     await todo.save();
     res.status(200).json(todo);
+  }
+  */
+  if (req.method === "PATCH") {
+    const { x } = req.body;
+    if (x === "completed") {
+      const { slug } = req.query;
+      const { completed } = req.body;
+      const todo = await Todo.findByPk(slug);
+      todo.completed = completed;
+      await todo.save();
+      res.status(200).json(todo);
+    }
+    if (x === "favourite") {
+      const { slug } = req.query;
+      const { favourite } = req.body;
+      const todo = await Todo.findByPk(slug);
+      todo.favourite = favourite;
+      await todo.save();
+      res.status(200).json(todo);
+    }
   }
 }
